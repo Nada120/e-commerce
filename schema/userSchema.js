@@ -74,6 +74,8 @@ userSchema.methods.generateToken = function () {
         Email: this.Email,
         PhoneNumber: this.PhoneNumber,
         Address: this.Address,
+        isAdmin: this.isAdmin,
+        Cart: this.Cart
     }, secretKey);
     return token;
 }

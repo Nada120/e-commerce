@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 
 const signin = async (req, res, next) => {
     try {
-        const {UserName, Password} = req.body;
-        const findUser = await userModel.findOne({UserName});
+        const {Email, Password} = req.body;
+        const findUser = await userModel.findOne({Email});
         if (!findUser) {
             next(err({
                 stateCode: 400,
@@ -14,15 +14,16 @@ const signin = async (req, res, next) => {
         }
         
         const comPassword = await bcrypt.compare(Password, findUser.Password);
-        if (!comPassword) {
+        
+        if (comPassword) {
+            const token = await findUser.generateToken();
+            res.json({token});
+        } else {
             next(err({
                 stateCode: 400,
                 message: 'The Password is invalid'
             }));
         }
-
-        const token = await findUser.generateToken();
-        res.status(200).json({token});
     } catch (e) {
         const message = e.message.substring(28).split(',');
         next(err({
