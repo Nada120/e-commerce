@@ -9,20 +9,19 @@ const signin = async (req, res, next) => {
         if (!findUser) {
             next(err({
                 stateCode: 400,
-                message: 'The UserName Not found'
+                message: 'The Email Not found'
             }));
-        }
-        
-        const comPassword = await bcrypt.compare(Password, findUser.Password);
-        
-        if (comPassword) {
-            const token = await findUser.generateToken();
-            res.json({token});
         } else {
-            next(err({
-                stateCode: 400,
-                message: 'The Password is invalid'
-            }));
+            const comPassword = await bcrypt.compare(Password, findUser.Password);
+            if (comPassword) {
+                const token = await findUser.generateToken();
+                res.json({token});
+            } else {
+                next(err({
+                    stateCode: 400,
+                    message: 'The Password is invalid'
+                }));
+            }
         }
     } catch (e) {
         const message = e.message.substring(28).split(',');

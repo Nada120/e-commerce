@@ -8,7 +8,7 @@ const signin = require('../services/signin');
 
 // call admin services
 const getAllUsers = require('../services/adminServices/getAllUsers');
-
+const deleteUser = require('../services/adminServices/deleteUser');
 
 // user & admin services
 router.post('/register', register);
@@ -16,7 +16,7 @@ router.post('/signin', signin);
 
 // admin services
 router.get('/', adminAuth, getAllUsers);
-// router.delete('/delete/:id', adminAuth, deleteUser);
+router.delete('/delete/:id', adminAuth, deleteUser);
 
 // user services
 // router.patch('/edit/:id', userAuth, editUserData);
