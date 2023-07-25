@@ -12,7 +12,8 @@ const productSchema = mongoose.Schema({
         required: [true, 'Price of Product Is Required Field']
     },
     Description: {
-        maxlength: [30, 'Must Be At Most 30'],
+        type: String,
+        maxlength: [100, 'Must Be At Most 100'],
         minlength: [10, 'Must Be At Least 10'],
         required: [true, 'Description of Product Is Required Field']
     }
