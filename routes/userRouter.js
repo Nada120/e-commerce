@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
+const register = require('../services/registeration');
+ 
 // user & admin services
-// router.post('/register', register);
+router.post('/register', register);
 // router.post('/signin', signin);
 
 // admin services

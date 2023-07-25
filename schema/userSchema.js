@@ -48,7 +48,10 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    Cart: [mongoose.Schema.Types.Mixed]
+    Cart: {
+        type: [mongoose.Schema.Types.Mixed],
+        default: null
+    }
 }); 
 
 userSchema.pre('save', async function (next) {
