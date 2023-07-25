@@ -1,6 +1,10 @@
 const  mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const salt = require('../constant/salt');
+const jwt = require('jsonwebtoken');
+const util = require('util');
+const asyncAsign = util.promisify(jwt.sign)
+const secretKey = require('../constant/secretKey');
 
 const userSchema = mongoose.Schema({
     Email: {
@@ -11,13 +15,13 @@ const userSchema = mongoose.Schema({
     FirstName: {
         type: String,
         maxlength: [10, 'Must Be At Most 10'],
-        minlength: [4, 'Must Be At Least 4'],
+        minlength: [3, 'Must Be At Least 3'],
         required: [true, 'First Name Is Required Field']
     },
     LastName: {
         type: String,
         maxlength: [10, 'Must Be At Most 10 Number'],
-        minlength: [4, 'Must Be At Least 4 Number'],
+        minlength: [3, 'Must Be At Least 3 Number'],
         required: [true, 'Last Name Is Required Field']
     },
     UserName: {
@@ -28,7 +32,6 @@ const userSchema = mongoose.Schema({
     },
     PhoneNumber: {
         type: Number,
-        max: [11, 'Must Be 11 Number'],
         min: [11, 'Must Be 11 Number'],
         required: [true, 'Phone Number Is Required Field']
     },
@@ -50,15 +53,28 @@ const userSchema = mongoose.Schema({
     },
     Cart: {
         type: [mongoose.Schema.Types.Mixed],
-        default: null
+        default: []
     }
 }); 
 
 userSchema.pre('save', async function (next) {
-    if (!this.isModified('Password')) return next();
-
-    const hashPass = await bcrypt.hash(this.Password, salt);
-    this.Password = hashPass;   
+    if (this.isModified('Password')) {
+        const hashpass = await bcrypt.hash(this.Password, salt);
+        console.log(hashpass);
+        this.Password = hashpass;
+    }  next();
 });
 
+userSchema.methods.generateToken = function () {
+    const token = asyncAsign({
+        id: this.id,
+        FirstName: this.FirstName,
+        LastName: this.LastName,
+        UserName: this.UserName,
+        Email: this.Email,
+        PhoneNumber: this.PhoneNumber,
+        Address: this.Address,
+    }, secretKey);
+    return token;
+}
 module.exports = userSchema;

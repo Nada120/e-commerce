@@ -12,7 +12,7 @@ app.use('/product', ProductRouter);
 
 app.all('*', (req, res, next) => {
     next(error({
-        stateCod: 400,
+        stateCode: 400,
         message: `Can not Find ${req.url} in the server`
       }))
 });
@@ -20,7 +20,7 @@ app.all('*', (req, res, next) => {
 app.use((err , req , res , next)=>{
     res.status(err.status).send({
         message: err.message,
-        code: err.code
+        codee: err.code
     })
 });
 
