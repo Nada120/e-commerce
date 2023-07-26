@@ -1,5 +1,4 @@
 const productModel = require('../../model/productModel');
-const err = require('../../middleware/errorHadle');
 
 const addProduct = async (req, res, next) => {
     try {
@@ -10,10 +9,7 @@ const addProduct = async (req, res, next) => {
     } catch (e) {
         
         const message = e.message.substring(30).split(',');
-        next(err({
-            message: res.json(message),
-            stateCode: 404
-        }));
+        res.status(404).json(message);
     }
 }
 

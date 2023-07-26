@@ -24,11 +24,9 @@ const signin = async (req, res, next) => {
             }
         }
     } catch (e) {
+        
         const message = e.message.substring(28).split(',');
-        next(err({
-            stateCode: 400,
-            message: res.json(message)
-        }));
+        res.status(404).json(message);
     }
 }
 module.exports = signin;

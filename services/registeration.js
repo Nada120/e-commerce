@@ -1,5 +1,4 @@
 const userModel = require('../model/userModel');
-const err = require('../middleware/errorHadle');
 
 const register = async (req, res, next) => {
     const {
@@ -28,11 +27,9 @@ const register = async (req, res, next) => {
         const token = await addUser.generateToken();
         res.status(200).json({token});
     } catch (e) {
+
         const message = e.message.substring(28).split(',');
-        next(err({
-            stateCode: 400,
-            message: res.json(message)
-        }));
+        res.status(404).json(message);
     }
 }
 

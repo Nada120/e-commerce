@@ -1,7 +1,6 @@
 
-module.exports = ({stateCode = 500 , code , message })=>{
-    const CustomError = new Error(message)
-    CustomError.code = code,
-    CustomError.status = stateCode
-    return CustomError
+module.exports = ({stateCode = 500, message}) => {
+    const CustomError = new Error(message);
+    CustomError.status = stateCode;
+    return CustomError;
 }
