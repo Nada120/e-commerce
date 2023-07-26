@@ -25,8 +25,7 @@ const productSchema = mongoose.Schema({
     toJSON: {
         transform: function (doc, ret) {
             delete ret.__v;
-            delete ret._id;
-            delete ret.users;           
+            delete ret._id;       
         },
     }
 });
