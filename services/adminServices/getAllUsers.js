@@ -1,10 +1,10 @@
-const userModel = require('../../model/userModel');
+const userModel = require('../../models/userModel');
 const err = require('../../middleware/errorHadle');
 
 
 const getAllUsers = async (req, res, next) => {
     try {
-        const usersData = await userModel.find({});
+        const usersData = await userModel.find({isAdmin: false}).populate({path: "Cart", model: "ProductData"});
         res.send(usersData);
     } catch (e) {
         next(err({

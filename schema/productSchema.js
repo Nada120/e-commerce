@@ -16,7 +16,11 @@ const productSchema = mongoose.Schema({
         maxlength: [100, 'Must Be At Most 100'],
         minlength: [10, 'Must Be At Least 10'],
         required: [true, 'Description of Product Is Required Field']
-    }
+    },
+    users: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'UserData'
+    }]
 });
 
 module.exports = productSchema;

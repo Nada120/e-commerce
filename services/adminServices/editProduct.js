@@ -1,4 +1,4 @@
-const productModel = require('../../model/productModel');
+const productModel = require('../../models/productModel');
 const err = require('../../middleware/errorHadle');
 
 const editProduct = async (req, res, next) => {

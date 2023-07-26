@@ -1,4 +1,4 @@
-const userModel = require('../model/userModel');
+const userModel = require('../models/userModel');
 const err = require('../middleware/errorHadle');
 const bcrypt = require('bcrypt');
 
@@ -25,7 +25,7 @@ const signin = async (req, res, next) => {
         }
     } catch (e) {
         
-        const message = e.message.substring(28).split(',');
+        const message = e.message.split(',');
         res.status(404).json(message);
     }
 }

@@ -1,4 +1,4 @@
-const userModel = require('../../model/userModel');
+const userModel = require('../../models/userModel');
 const err = require('../../middleware/errorHadle');
 
 const deleteUser = async (req, res, next) => {

@@ -1,4 +1,4 @@
-const productModel = require('../../model/productModel');
+const productModel = require('../../models/productModel');
 const err = require('../../middleware/errorHadle');
 
 const deleteProduct = async (req, res, next) => {
