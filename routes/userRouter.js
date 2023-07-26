@@ -19,9 +19,9 @@ router.get('/', adminAuth, getAllUsers);
 router.delete('/delete/:id', adminAuth, deleteUser);
 
 // user services
-// router.patch('/edit/:id', userAuth, editUserData);
 // router.post('/cart', userAuth, addToCart);
 // router.get('/cart', userAuth, getAllCart);
-// router.delete('/cart/delete/:id', userAuth, deleteProFromCart);
+// router.post('/cart/verify', userAuth, verifyMyOrder);
+// router.delete('/cart/cancel/:id', userAuth, cancelMyOrder);
 
 module.exports = router;
