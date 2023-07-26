@@ -6,7 +6,10 @@ const cancelMyOrder = async (req, res, next) => {
     try {
         const {id} = req.params;
         const user = req.user;
+        
         const idCancel = user.Cart.find(item => item == id);
+        
+        
              
         if (!idCancel) {
             next(err({
@@ -17,7 +20,7 @@ const cancelMyOrder = async (req, res, next) => {
             
             const filterProducts = user.Cart.filter(item => item != id); 
             await userModel.findByIdAndUpdate(
-                {_id: user._id},
+                {_id: user.id},
                 {Cart: filterProducts}
             );
             

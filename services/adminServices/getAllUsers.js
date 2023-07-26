@@ -4,7 +4,12 @@ const err = require('../../middleware/errorHadle');
 
 const getAllUsers = async (req, res, next) => {
     try {
-        const usersData = await userModel.find({isAdmin: false}).populate({path: "Cart", model: "ProductData"});
+        const usersData = await userModel.find({isAdmin: false})
+        .populate({
+            path: "Cart", 
+            model: "ProductData",
+            select: ["Name", "Price", "Description"]
+        });
         res.send(usersData);
     } catch (e) {
         next(err({

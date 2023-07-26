@@ -22,7 +22,9 @@ const productSchema = mongoose.Schema({
         ref: 'UserData'
     }],   
 }, {
+    toObject: {virtuals:true},
     toJSON: {
+        virtuals:true,
         transform: function (doc, ret) {
             delete ret.__v;
             delete ret._id;       
