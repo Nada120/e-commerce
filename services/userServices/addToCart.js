@@ -1,9 +1,5 @@
 const userModel = require('../../models/userModel');
 const productModel = require('../../models/productModel');
-const util = require('util');
-const jwt = require('jsonwebtoken');
-const verifyAuth = util.promisify(jwt.verify);
-const secretKey = require('../../constant/secretKey');
 const err = require('../../middleware/errorHadle');
 
 const addToCart = async (req, res, next) => {

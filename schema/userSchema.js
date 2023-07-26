@@ -55,6 +55,14 @@ const userSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'ProductData'
     }]
+},{
+    toJSON: {
+        transform: function (doc, ret) {
+            delete ret.__v;
+            delete ret._id;
+            delete ret.Password;           
+        },
+    }
 }); 
 
 userSchema.pre('save', async function (next) {

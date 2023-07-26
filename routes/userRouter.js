@@ -13,6 +13,8 @@ const deleteUser = require('../services/adminServices/deleteUser');
 
 // call user services
 const addToCart = require('../services/userServices/addToCart');
+const showCart = require('../services/userServices/showCart');
+
 
 // user & admin services
 router.post('/register', register);
@@ -24,7 +26,7 @@ router.delete('/delete/:id', adminAuth, deleteUser);
 
 // user services
 router.get('/cart/:id', userAuth, addToCart);
-// router.get('/cart', userAuth, getAllCart);
+router.get('/cart', userAuth, showCart);
 // router.post('/cart/verify', userAuth, verifyMyOrder);
 // router.delete('/cart/cancel/:id', userAuth, cancelMyOrder);
 
