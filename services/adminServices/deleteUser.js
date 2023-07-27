@@ -1,10 +1,12 @@
 const userModel = require('../../models/userModel');
+const productModel = require('../../models/productModel');
 const err = require('../../middleware/errorHadle');
 
 const deleteUser = async (req, res, next) => {
     try {
         const {id} = req.params;
         const user = await userModel.findOne({ _id: id });
+        const products = await productModel.find({});
         
         if(!user) {
             next(err({
@@ -14,6 +16,16 @@ const deleteUser = async (req, res, next) => {
         
         } else {
             await userModel.findOneAndDelete({ _id: id });
+            for (const el of products) {
+                const users = el.users.filter(l => l != id);
+                
+                await productModel.findByIdAndUpdate(
+                    el,
+                    {users: users}
+                );
+                console.log(users);
+            }
+
             res.send('Delete Successfully');
         
         }
