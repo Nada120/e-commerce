@@ -4,7 +4,6 @@ const err = require('../../middleware/errorHadle');
 const deleteProduct = async (req, res, next) => {
     try {
         const {id} = req.params;
-        const delProduct = await productModel.findOneAndDelete({ _id: id });
 
         if (!delProduct) {
             next(err({
@@ -12,6 +11,7 @@ const deleteProduct = async (req, res, next) => {
                 stateCode: 400
             }));
         } else {
+            const delProduct = await productModel.findOneAndDelete({ _id: id });
             res.send('Delete Successfully');
         }
     } catch (e) {

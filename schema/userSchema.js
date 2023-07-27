@@ -51,14 +51,12 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    Cart: [{
+    myCart: [{
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'ProductData'
+        ref: 'CartData'
     }]
 },{
-    toObject: {virtuals:true},
     toJSON: {
-        virtuals:true,
         transform: function (doc, ret) {
             delete ret.__v;
             delete ret._id;
