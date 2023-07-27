@@ -14,21 +14,41 @@ const cancelMyOrder = async (req, res, next) => {
                 stateCode: 400
             }));
         } else {
+            const dateNow = new Date().getTime();
+            console.log(dateNow);
+            let canCancel = false;
+            let newVerify = [];
             
-            const filterProducts = user.myCart.filter(item => item != id); 
-            await userModel.findByIdAndUpdate(
-                {_id: user.id},
-                {myCart: filterProducts}
-            );
+            user.Verify.forEach(el => {
+                if (el.idPro == id && el.TimeCancel > dateNow) {
+                    canCancel = true;
+                } else {
+                    newVerify.push(el);
+                }
+            });
             
-            const product = await productModel.findOne({_id: id});
-            const users = product.users.filter(item => item != user.id); 
-            await productModel.findByIdAndUpdate(
-                id,
-                {users: users}
-            );
+            if (canCancel) {
+                const filterProducts = user.myCart.filter(item => item != id); 
+                await userModel.findByIdAndUpdate(
+                    {_id: user.id},
+                    {myCart: filterProducts,
+                    Verify: newVerify}
+                );
             
-            res.send('Delete Successfully');
+                const product = await productModel.findOne({_id: id});
+                const users = product.users.filter(item => item != user.id); 
+                await productModel.findByIdAndUpdate(
+                    id,
+                    {users: users}
+                );
+            
+                res.send('Delete Successfully');
+            } else {
+                next(err({
+                    message: 'You Can Not Cancel Your Order The Time Out',
+                    stateCode: 400
+                }));
+            }
         }
     } catch (e) {
         next(err({

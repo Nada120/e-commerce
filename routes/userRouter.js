@@ -15,6 +15,7 @@ const deleteUser = require('../services/adminServices/deleteUser');
 const addToCart = require('../services/userServices/addToCart');
 const showCart = require('../services/userServices/showCart');
 const cancelMyOrder = require('../services/userServices/cancelMyOrder'); 
+const verifyMyOrder = require('../services/userServices/verifyMyProduct')
 
 // user & admin services
 router.post('/register', register);
@@ -27,7 +28,7 @@ router.delete('/delete/:id', adminAuth, deleteUser);
 // user services
 router.get('/cart/:id', userAuth, addToCart);
 router.get('/cart', userAuth, showCart);
-// router.post('/cart/verify', userAuth, verifyMyOrder);
+router.get('/cart/verify/:id', userAuth, verifyMyOrder);
 router.delete('/cart/cancel/:id', userAuth, cancelMyOrder);
 
 module.exports = router;

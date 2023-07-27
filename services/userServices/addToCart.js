@@ -18,6 +18,7 @@ const addToCart = async (req, res, next) => {
                 await cartModel.create({Cart: product});
         
                 user.myCart.push(product._id);
+            
                 console.log('my Cart is : ', user.myCart)
                 await userModel.findByIdAndUpdate(
                     user.id,

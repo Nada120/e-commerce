@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const util = require('util');
 const asyncAsign = util.promisify(jwt.sign)
 const secretKey = require('../constant/secretKey');
+const { time } = require('console');
 
 const userSchema = mongoose.Schema({
     Email: {
@@ -54,6 +55,14 @@ const userSchema = mongoose.Schema({
     myCart: [{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'CartData'
+    }],
+    Verify: [{
+       TimeCancel: {
+        type: Number
+       },
+       idPro: {
+        type: mongoose.Schema.Types.ObjectId, 
+       }
     }]
 },{
     toJSON: {
