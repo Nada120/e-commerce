@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const carttSchema = mongoose.Schema({
-    Cart: [{
+    Cart: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'ProductData'
-    }]
+    }
 },{
     toJSON: {
         transform: function (doc, ret) {

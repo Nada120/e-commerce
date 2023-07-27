@@ -1,16 +1,19 @@
-const userModel = require('../../models/userModel');
+const productModel = require('../../models/productModel');
 const err = require('../../middleware/errorHadle');
 
 const showCart = async (req, res, next) => {
     try {
         const user = req.user;
-        const allCart = await user.populate({
-            path: "Cart", 
-            model: "ProductData", 
-            select: ["Name", "Price", "Description"]
-        });
+        const allProducts = user.myCart;
+        var cart = [];
         
-        res.json(allCart.Cart);
+        for (const el of allProducts) {
+            const item = await productModel.findOne({_id: el});
+            const {Name, Price, Description} = item;
+            cart.push({Name, Price, Description});
+        }
+        
+        res.send(cart);
     } catch (e) {
         next(err({
             message: e.message,

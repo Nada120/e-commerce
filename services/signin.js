@@ -6,6 +6,7 @@ const signin = async (req, res, next) => {
     try {
         const {Email, Password} = req.body;
         const findUser = await userModel.findOne({Email});
+        
         if (!findUser) {
             next(err({
                 stateCode: 400,
