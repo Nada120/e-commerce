@@ -1,5 +1,6 @@
 const productModel = require('../../models/productModel');
 const cartModel = require('../../models/cartModel');
+const userModel = require('../../models/userModel');
 const err = require('../../middleware/errorHadle');
 
 const deleteProduct = async (req, res, next) => {
@@ -14,6 +15,18 @@ const deleteProduct = async (req, res, next) => {
             }));
         
         } else {
+            const users = await userModel.find({});
+        
+            for (const el of users) {
+                const cart = el.myCart.filter(l => l != id);
+            
+                await userModel.findByIdAndUpdate(
+                    {_id: el._id},
+                    {myCart: cart}
+                );
+             
+            }
+            
             await cartModel.deleteMany({Cart: id});
             await productModel.findOneAndDelete({ _id: id });
             res.send('Delete Successfully');

@@ -6,7 +6,7 @@ const deleteUser = async (req, res, next) => {
     try {
         const {id} = req.params;
         const user = await userModel.findOne({ _id: id });
-        const products = await productModel.find({});
+        const products = await productModel.find({})
         
         if(!user) {
             next(err({
@@ -20,7 +20,7 @@ const deleteUser = async (req, res, next) => {
                 const users = el.users.filter(l => l != id);
                 
                 await productModel.findByIdAndUpdate(
-                    el,
+                    {_id: el._id},
                     {users: users}
                 );
                 console.log(users);
