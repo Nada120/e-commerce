@@ -6,8 +6,8 @@ const getAllUsers = async (req, res, next) => {
     try {
         const usersData = await userModel.find({isAdmin: false})
         .populate({
-            path: "Cart", 
-            model: "ProductData",
+            path: "myCart", 
+            model: "CartData",
             select: ["Name", "Price", "Description"]
         });
         res.send(usersData);
