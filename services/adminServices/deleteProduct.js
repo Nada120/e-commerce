@@ -7,30 +7,25 @@ const deleteProduct = async (req, res, next) => {
     try {
         const {id} = req.params;
         const product = await productModel.findOne({ _id: id });
-        
         if (!product) {
             next(err({
                 message: 'There Is No Product has This Id',
                 stateCode: 400
             }));
-        
         } else {
             const users = await userModel.find({});
-        
             for (const el of users) {
-                const cart = el.myCart.filter(l => l != id);
-            
+                let cart = el.myCart.filter(l => l != id);
+                let verify = user.Verify.filter(l => l.idPro != id);
                 await userModel.findByIdAndUpdate(
                     {_id: el._id},
-                    {myCart: cart}
+                    {myCart: cart,
+                    Verify: verify}
                 );
-             
             }
-            
             await cartModel.deleteMany({Cart: id});
             await productModel.findOneAndDelete({ _id: id });
             res.send('Delete Successfully');
-        
         }
     } catch (e) {
         next(err({

@@ -14,12 +14,22 @@ const deleteUser = require('../services/adminServices/deleteUser');
 // call user services
 const addToCart = require('../services/userServices/addToCart');
 const showCart = require('../services/userServices/showCart');
-const cancelMyOrder = require('../services/userServices/cancelMyOrder'); 
-const verifyMyOrder = require('../services/userServices/verifyMyProduct')
+const cancelMyOrder = require('../services/userServices/cancelMyOrder');
+const verifyMyOrder = require('../services/userServices/verifyMyProduct');
 
 // user & admin services
 router.post('/register', register);
 router.post('/signin', signin);
+
+// show signin html page
+router.get('/signin', (req, res) => {
+    res.render("signin")
+});
+
+// show register html page
+router.get('/register', (req, res) => {
+    res.render("register");
+});
 
 // admin services
 router.get('/', adminAuth, getAllUsers);

@@ -5,9 +5,7 @@ const getAllProducts = async (req, res, next) => {
     try {
         const allProducts = await productModel.find({});
         res.status(200).json({allProducts});
-    
     } catch (e) {
-
         next(err({
             message: e.message,
             stateCode: 404

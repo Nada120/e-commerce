@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin</title>
+    <link rel="stylesheet" href="/public/registerstyle.css" type="text/css">
+</head>
+    <body>
+        <div class="div-fields">
+            <h1 id="title">REGISTER</h1>
+            <form method="post">
+            <input class="input-fields" type="text" name="UserName" placeholder="Enter UserName" required>
+            <br>
+            <input class="f-input-fields" type="text" name="FirstName" placeholder="Enter FirstName" required>
+            <input class="f-input-fields" type="text" name="LastName" placeholder="Enter LastName" required>
+            <br>
+            <input class="input-fields" type="email" name="Email" placeholder="Enter Email" required>
+            <br>
+            <input class="input-fields" type="text" name="Address" placeholder="Enter Address" required>
+            <br>
+            <input class="input-fields" type="number" name="PhoneNumber" placeholder="Enter PhoneNumber" required>
+            <br>
+            <input class="input-fields" type="password" name="Password" placeholder="Enter Password" required>
+            <br>
+            <button type="button" id="signin">Signin</button>
+            <button type="submit" id="register">Register</button>
+            </form>
+        </div>
+        <script>
+            document.getElementById('signin').addEventListener("click", () => {
+                location.href = 'http://localhost:3000/user/signin';
+            }); 
+        </script>
+    </body>
+</html>

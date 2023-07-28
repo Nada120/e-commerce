@@ -46,14 +46,14 @@ const userSchema = mongoose.Schema({
         type: String,
         maxlength: [15, 'Must Be At Most 15 Number'],
         minlength: [8, 'Must Be At Least 8 Number'],
-        required: [true, 'Password Is Required Field'] 
+        required: [true, 'Password Is Required Field'],
     },
     isAdmin: {
         type: Boolean,
         default: false
     },
     myCart: [{
-        type: mongoose.Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'CartData'
     }],
     Verify: [{
@@ -61,17 +61,17 @@ const userSchema = mongoose.Schema({
         type: Number
        },
        idPro: {
-        type: mongoose.Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId,
        }
     }]
 },{
     toJSON: {
         transform: function (doc, ret) {
             delete ret.__v;
-            delete ret.Password;           
+            delete ret.Password;
         },
     }
-}); 
+});
 
 userSchema.pre('save', async function (next) {
     if (this.isModified('Password')) {

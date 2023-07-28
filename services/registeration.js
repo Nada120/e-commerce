@@ -11,7 +11,6 @@ const register = async (req, res, next) => {
         Address,
         isAdmin
     } = req.body;
-    
     try {
         const addUser = await userModel.create({
             FirstName,
@@ -23,7 +22,6 @@ const register = async (req, res, next) => {
             Address,
             isAdmin
         });
-        
         const token = await addUser.generateToken();
         res.status(200).json({token});
     } catch (e) {

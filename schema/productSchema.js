@@ -18,14 +18,14 @@ const productSchema = mongoose.Schema({
         required: [true, 'Description of Product Is Required Field']
     },
     users: [{
-        type: mongoose.Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'UserData'
-    }],   
+    }],
 }, {
     toJSON: {
         transform: function (doc, ret) {
             delete ret.__v;
-            delete ret._id;       
+            delete ret._id;
         },
     }
 });

@@ -17,7 +17,6 @@ const userAuth = async (req, res, next) => {
     } else {
         const decode = await verifyAuth(token, secretKey);
         const user = await userModel.findOne({_id: decode.id});
-        
         if (decode.isAdmin) {
             next(err({
                 message: 'You Are Not Authorized, You Should Be User',

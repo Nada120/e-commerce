@@ -6,7 +6,6 @@ const signin = async (req, res, next) => {
     try {
         const {Email, Password} = req.body;
         const findUser = await userModel.findOne({Email});
-        
         if (!findUser) {
             next(err({
                 stateCode: 400,
@@ -25,7 +24,6 @@ const signin = async (req, res, next) => {
             }
         }
     } catch (e) {
-        
         const message = e.message.split(',');
         res.status(404).json(message);
     }

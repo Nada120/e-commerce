@@ -9,6 +9,7 @@ const editProduct = require('../services/adminServices/editProduct');
 // admin services
 router.post('/', adminAuth, addProduct);
 router.get('/', adminAuth, getAllProducts);
+
 router.delete('/delete/:id', adminAuth, deleteProduct);
 router.patch('/edit/:id', adminAuth, editProduct);
 

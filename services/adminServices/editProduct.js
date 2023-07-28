@@ -6,10 +6,9 @@ const editProduct = async (req, res, next) => {
         const {id} = req.params;
         const {Price, Description} = req.body;
         const edit = await productModel.findByIdAndUpdate(id,{
-            Price, 
+            Price,
             Description
         });
-        
         if (!edit) {
             next(err({
                 message: 'There Is No Product has This Id',
