@@ -3,11 +3,9 @@ const err = require('../../middleware/errorHadle');
 
 const verifyMyProduct = async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const { id } = req.body;
         const user = req.user;
-        const findProduct = user.myCart.filter(item => item == id);
-
-
+        const findProduct = user.myCart.filter(item => item.idPro == id);
         if (!findProduct) {
             next(err({
                 message: 'The Id Of The Product Not Found',
@@ -19,7 +17,7 @@ const verifyMyProduct = async (req, res, next) => {
             user.Verify.forEach(el => {
                 if (el.idPro == id) {
                     isVerify = true;
-                } 
+                }
             });
             if (isVerify) {
                 next(err({
@@ -27,16 +25,16 @@ const verifyMyProduct = async (req, res, next) => {
                     stateCode: 401
                 }));
             } else {
+                const date = new Date().getTime() + (60 * 60 * 24 * 1000);
                 user.Verify.push({
                     idPro: id,
-                    TimeCancel: new Date().getTime() + (60 * 60 * 24 * 1000)
+                    TimeCancel: date
                 });
                 await userModel.findByIdAndUpdate(user.id, {
                     Verify: user.Verify
                 });
                 res.status(200).send('Verify Successfully');
             }
-
         }
     } catch (e) {
         next(err({

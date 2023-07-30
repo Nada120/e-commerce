@@ -36,9 +36,9 @@ router.get('/', adminAuth, getAllUsers);
 router.delete('/delete/:id', adminAuth, deleteUser);
 
 // user services
-router.get('/cart/:id', userAuth, addToCart);
+router.post('/cart/add', userAuth, addToCart);
 router.get('/cart', userAuth, showCart);
-router.get('/cart/verify/:id', userAuth, verifyMyOrder);
-router.delete('/cart/cancel/:id', userAuth, cancelMyOrder);
+router.post('/cart/verify/', userAuth, verifyMyOrder);
+router.post('/cart/cancel/', userAuth, cancelMyOrder);
 
 module.exports = router;

@@ -53,8 +53,14 @@ const userSchema = mongoose.Schema({
         default: false
     },
     myCart: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'CartData'
+        Product: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'CartData'
+        },
+        ItemNumber: {
+            type: Number,
+            default: 1
+        }
     }],
     Verify: [{
        TimeCancel: {

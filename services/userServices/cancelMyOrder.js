@@ -4,9 +4,9 @@ const err = require('../../middleware/errorHadle');
 
 const cancelMyOrder = async (req, res, next) => {
     try {
-        const {id} = req.params;
+        const {id} = req.body;
         const user = req.user;
-        const idCancel = user.myCart.find(item => item == id);
+        const idCancel = user.myCart.find(item => item.Product == id);
         if (!idCancel) {
             next(err({
                 message: 'There Is No product has This Id',
@@ -14,7 +14,6 @@ const cancelMyOrder = async (req, res, next) => {
             }));
         } else {
             const dateNow = new Date().getTime();
-            console.log(dateNow);
             let canCancel = false;
             let newVerify = [];
             user.Verify.forEach(el => {
@@ -25,7 +24,7 @@ const cancelMyOrder = async (req, res, next) => {
                 }
             });
             if (canCancel) {
-                const filterProducts = user.myCart.filter(item => item != id);
+                const filterProducts = user.myCart.filter(item => item.Product != id);
                 await userModel.findByIdAndUpdate(
                     {_id: user.id},
                     {myCart: filterProducts,

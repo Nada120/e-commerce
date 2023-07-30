@@ -1,12 +1,10 @@
 const productModel = require('../../models/productModel');
-const cartModel = require('../../models/cartModel');
 const userModel = require('../../models/userModel');
 const err = require('../../middleware/errorHadle');
 
 const deleteProduct = async (req, res, next) => {
     try {
         const {id} = req.params;
-
         const product = await productModel.findOne({ _id: id });
         if (!product) {
             next(err({
@@ -18,14 +16,12 @@ const deleteProduct = async (req, res, next) => {
             for (const el of users) {
                 let cart = el.myCart.filter(l => l != id);
                 let verify = el.Verify.filter(l => l.idPro != id);
-                
                 await userModel.findByIdAndUpdate(
                     {_id: el._id},
                     {myCart: cart,
                     Verify: verify}
                 );
             }
-            await cartModel.deleteMany({Cart: id});
             await productModel.findOneAndDelete({ _id: id });
             res.send('Delete Successfully');
         }
