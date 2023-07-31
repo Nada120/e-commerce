@@ -14,7 +14,7 @@ const deleteProduct = async (req, res, next) => {
         } else {
             const users = await userModel.find({});
             for (const el of users) {
-                let cart = el.myCart.filter(l => l != id);
+                let cart = el.myCart.filter(l => l.Product != id);
                 let verify = el.Verify.filter(l => l.idPro != id);
                 await userModel.findByIdAndUpdate(
                     {_id: el._id},

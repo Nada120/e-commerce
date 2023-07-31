@@ -14,8 +14,8 @@ const cancelMyOrder = async (req, res, next) => {
             }));
         } else {
             const dateNow = new Date().getTime();
-            let canCancel = false;
             let newVerify = [];
+            let canCancel = user.Verify.every(el => {el.idPro != id});
             user.Verify.forEach(el => {
                 if (el.idPro == id && el.TimeCancel > dateNow) {
                     canCancel = true;

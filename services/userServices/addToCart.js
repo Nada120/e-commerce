@@ -5,14 +5,13 @@ const err = require('../../middleware/errorHadle');
 
 const addToCart = async (req, res, next) => {
     try {
-        var {id} = req.body;
+        var {id, ItemNumber} = req.body;
         const product = await productModel.findOne({_id: id});
         const user = req.user;
         if (product) {
             const isAdded = user.myCart.some(i => i.Product == id);
-            console.log(isAdded);
             if (!isAdded) {
-                user.myCart.push({Product: product._id});
+                user.myCart.push({Product: product._id, ItemNumber: ItemNumber});
                 await userModel.findByIdAndUpdate(
                     user.id,
                     {myCart: user.myCart
@@ -22,21 +21,13 @@ const addToCart = async (req, res, next) => {
                     {_id: id},
                     {users: product.users}
                 );
+                res.json('Added To Cart Successfully');
             } else {
-                let ItemNumber = [];
-                user.myCart.forEach(element => {
-                    if (element.Product == id) {
-                        ItemNumber.push(++element.ItemNumber);
-                    } else {
-                        ItemNumber.push(element.ItemNumber);
-                    }
-                });
-                await userModel.findByIdAndUpdate(
-                    user.id,
-                    {myCart: user.myCart
-                });
+                next(err({
+                    message: 'The Product Already Added To Cart',
+                    stateCode: 400
+                }));
             }
-            res.json('Added To Cart Successfully');
         } else {
             next(err({
                 message: 'There Is No Product has This Id',
